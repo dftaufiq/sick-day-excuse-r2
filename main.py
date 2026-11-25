@@ -36,11 +36,15 @@ def validate_line(line: str) -> None:
 
 
 # The entry itself: one fixed line, 127 characters, no trailing newline.
+# Structure: two beats (sneeze count, then the 8:15 standup) with the
+# reveal in the final clause — HR reclassifies the sneezer as a weather event.
 LINE = "Can't come in — I sneezed 34 times during the 8:15 standup and Sarah from HR has officially reclassified me as a weather event."
 
 
 def main() -> None:
     # Validate first, then write the line to entry.txt.
+    # The output must stay byte-exact (129 bytes, no trailing newline):
+    # any change to LINE or to this write step changes the entry itself.
     validate_line(LINE)
     out_dir = os.environ.get("OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
